@@ -80,6 +80,26 @@
             margin: 0;
             width: 100%;
             transition: transform 0.5s;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .panel>*:first-child {
+            transform: translateY(-100%);
+        }
+
+        .panel>*:last-child {
+            transform: translateY(100%);
+        }
+
+        .panel.active>*:first-child {
+            transform: translateY(0);
+        }
+
+        .panel.active>*:last-child {
+            transform: translateY(0);
         }
 
         .panel p {
@@ -87,22 +107,15 @@
             font-family: 'Amatic SC', cursive;
             text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
             font-size: 2em;
-            visibility: hidden;
         }
 
         .panel p:nth-child(2) {
             font-size: 4em;
-            visibility: visible;
         }
 
         .panel.open {
             font-size: 40px;
             flex: 2;
-        }
-
-        .panel.open p {
-            visibility: visible;
-            transition: cubic-bezier(0.23, 1, 0.320, 1);
         }
     </style>
 
@@ -140,30 +153,29 @@
 
         const panels = document.querySelectorAll('.panel');
 
-        for (let panel of panels) {
-            panel.addEventListener('mouseenter', function () {
-                console.log('hello');
-                panel.classList.add('open');
-            })
-            panel.addEventListener('mouseleave', function () {
-                console.log('goodbye');
-                panel.classList.remove('open');
-            })
+        function toggleOpen() {
+            this.classList.toggle('open');
         }
-        // const panel1 = document.querySelector('.panel1');
-        // const panel2 = document.querySelector('.panel2');
-        // const panel3 = document.querySelector('.panel3');
-        // const panel4 = document.querySelector('.panel4');
-        // const panel5 = document.querySelector('.panel5');
+
+        function toggleActive(e) {
+            if (e.propertyName.includes('flex')) {
+                this.classList.toggle('active');
+            }
+        }
+
+        panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+        panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
 
 
-        // const function(e) {
-        //     panels.addEventListener('click', function () {
-        //         // this.style.flex = "3";
-        //         // this.classList.add('open');
-        //         console.log('hello');
+        // Original solution:
+        // for (let panel of panels) {
+        //     panel.addEventListener('mouseenter', function () {
+        //         panel.classList.add('open');
         //     })
-        // };
+        //     panel.addEventListener('mouseleave', function () {
+        //         panel.classList.remove('open');
+        //     })
+        // }
 
     </script>
 
