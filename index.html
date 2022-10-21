@@ -29,15 +29,19 @@
 
         .panels {
             min-height: 100vh;
-            overflow: hidden;
+            /* overflow: hidden; */
+            display: flex;
         }
 
         .panel {
             background: #6B0F9C;
             box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
             color: white;
+            display: flex;
+            flex-direction: column;
             text-align: center;
             align-items: center;
+            justify-content: center;
             /* Safari transitionend event.propertyName === flex */
             /* Chrome + FF transitionend event.propertyName === flex-grow */
             transition:
@@ -47,6 +51,8 @@
             font-size: 20px;
             background-size: cover;
             background-position: center;
+            flex: 1;
+
         }
 
         .panel1 {
@@ -81,14 +87,22 @@
             font-family: 'Amatic SC', cursive;
             text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
             font-size: 2em;
+            visibility: hidden;
         }
 
         .panel p:nth-child(2) {
             font-size: 4em;
+            visibility: visible;
         }
 
         .panel.open {
             font-size: 40px;
+            flex: 2;
+        }
+
+        .panel.open p {
+            visibility: visible;
+            transition: cubic-bezier(0.23, 1, 0.320, 1);
         }
     </style>
 
@@ -112,7 +126,7 @@
         <div class="panel panel4">
             <p>Give</p>
             <p>All</p>
-            <p>You can</p>
+            <p>You Can</p>
         </div>
         <div class="panel panel5">
             <p>Life</p>
@@ -122,6 +136,34 @@
     </div>
 
     <script>
+
+
+        const panels = document.querySelectorAll('.panel');
+
+        for (let panel of panels) {
+            panel.addEventListener('mouseenter', function () {
+                console.log('hello');
+                panel.classList.add('open');
+            })
+            panel.addEventListener('mouseleave', function () {
+                console.log('goodbye');
+                panel.classList.remove('open');
+            })
+        }
+        // const panel1 = document.querySelector('.panel1');
+        // const panel2 = document.querySelector('.panel2');
+        // const panel3 = document.querySelector('.panel3');
+        // const panel4 = document.querySelector('.panel4');
+        // const panel5 = document.querySelector('.panel5');
+
+
+        // const function(e) {
+        //     panels.addEventListener('click', function () {
+        //         // this.style.flex = "3";
+        //         // this.classList.add('open');
+        //         console.log('hello');
+        //     })
+        // };
 
     </script>
 
